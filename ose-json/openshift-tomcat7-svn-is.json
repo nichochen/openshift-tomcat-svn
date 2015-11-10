@@ -1,0 +1,37 @@
+{
+  "kind": "ImageStreamList",
+  "apiVersion": "v1",
+  "metadata": {},
+  "items": [
+    {
+      "kind": "ImageStream",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "openshift-tomcat7-svn",
+        "annotations": {"openshift.io/image.insecureRepository": "true"},
+        "creationTimestamp": null
+      },
+      "spec": {
+        "dockerImageRepository": "registry.example.com:5000/openshift-tomcat7-svn",
+        "tags": [
+          {
+            "name": "latest"
+          },
+          {
+            "name": "2.0",
+            "annotations": {
+              "description": "Run JavaEE WAR applications",
+              "iconClass": "icon-ruby",
+              "tags": "builder,tomcat,java,war",
+              "supports": "java",
+              "version": "1.0"
+            },
+            "from": {
+              "Kind": "ImageStreamTag",
+              "Name": "latest"
+            }
+          }
+        ]
+      }
+    }  ]
+}

@@ -1,0 +1,45 @@
+#!/bin/bash -e
+#
+# S2I assemble script for the 'nico-tomcat' image.
+# The 'assemble' script builds your application source ready to run.
+#
+# For more information refer to the documentation:
+#	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
+#
+
+# Restore artifacts from the previous build (if they exist).
+#
+if [ "$1" = "-h" ]; then
+        # If the 'nico-tomcat' assemble script is executed with '-h' flag,
+        # print the usage.
+        exec /usr/local/s2i/usage
+fi
+
+# Restore artifacts from the previous build (if they exist).
+#
+if [ "$(ls /tmp/artifacts/ 2>/dev/null)" ]; then
+  echo "---> Restoring build artifacts"
+  mv /tmp/artifacts/. ./
+fi
+
+echo "---> Installing application source"
+
+WORK_DIR=/tmp/src;
+cd $WORK_DIR;
+if [ ! -z ${SVN_URI} ] ; then
+  echo "Fetching source from Subversion repository ${SVN_URI}"
+  svn co ${SVN_URI}
+  export SRC_DIR=`basename $SVN_URI`
+  echo "Finished fetching source from Subversion repository ${SVN_URI}"
+
+  cd $WORK_DIR/$SRC_DIR/
+  mvn package -Dmaven.test.skip=true;
+else
+  echo "SVN_URI not set, skip Subverion source download";
+fi
+
+
+find /tmp/src/ -name '*.war'|xargs -i cp -v {} /opt/app-root/tomcat7/webapps/
+
+echo "---> Building application from source"
+# TODO: Add build steps for your application, eg npm install, bundle install
