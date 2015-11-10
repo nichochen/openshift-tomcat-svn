@@ -9,26 +9,26 @@ Downlaod this source to a Linux host with docker, make and [Openshift S2I](https
 Download Apache Tomcat 7 from [Apache Tomcat homepage](http://tomcat.apache.org/download-70.cgi). Please download the tar.gz format.
 
 ###Step 2###
-Extract the content of the Tomcat 7 tar.gz file into folder <openshift-tomcat7-svn>/tomcat7
+Extract the content of the Tomcat 7 tar.gz file into folder openshift-tomcat7-svn/tomcat7
 
 ###Step 3###
 Build the image
-  $ cd <souce folder>
-  $ make
+        $ cd <souce folder>
+        $ make
 After the build completed successfully, you can see the newly created image by running:
-  $ docker images
+        $ docker images
   
 ###Step 4###
 Tag the image and push the image to your own registry
-  $ docker tag openshift-tomcat7-svn <your registry>/openshift-tomcat7-svn  
-  $ docker push <your registry>/openshift-tomcat7-svn  
+        $ docker tag openshift-tomcat7-svn <your registry>/openshift-tomcat7-svn  
+        $ docker push <your registry>/openshift-tomcat7-svn  
 
 ###Step 5###
 To use the image in OpenShift, you need to create ImageStream and Template for the image.
 Sample ImageStream and Template JSON files are provide in <openshift-tomcat7-svn>/OSE-json.
 Please modify them according to your need, before using.
-  $oc create -n openshift -f openshift-tomcat7-svn-is.json
-  $oc create -n openshift -f openshift-tomcat7-svn-template.json
+        $oc create -n openshift -f openshift-tomcat7-svn-is.json
+        $oc create -n openshift -f openshift-tomcat7-svn-template.json
 
 ###Step 6###
 Now you can create a new project in OpenShift and add a new app to the project, remember to select the template we just created. 
