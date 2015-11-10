@@ -1,0 +1,1 @@
+This is a Openshift 3 Tomcat 7 S2I Image which supports Subversion source checkout and compilation.
