@@ -7,7 +7,7 @@
       "kind": "ImageStream",
       "apiVersion": "v1",
       "metadata": {
-        "name": "openshift-tomcat7-svn",
+        "name": "ci/openshift-tomcat7-svn",
         "annotations": {"openshift.io/image.insecureRepository": "true"},
         "creationTimestamp": null
       },
